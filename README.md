@@ -1,1 +1,1 @@
-# holbertonschool-chatgpt-introduction
+Practicing code quality with ChatGPT
