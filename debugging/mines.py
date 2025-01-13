@@ -9,6 +9,7 @@ class Minesweeper:
     def __init__(self, width=10, height=10, mines=10):
         self.width = width
         self.height = height
+        # Ensure unique mine positions by using set() and random.sample
         self.mines = set(random.sample(range(width * height), mines))
         self.field = [[' ' for _ in range(width)] for _ in range(height)]
         self.revealed = [[False for _ in range(width)] for _ in range(height)]
@@ -45,7 +46,7 @@ class Minesweeper:
         if (y * self.width + x) in self.mines:
             return False
         self.revealed[y][x] = True
-        self.revealed_non_mine_cells += 1  # Increment the revealed non-mine cell count
+        self.revealed_non_mine_cells += 1
         if self.count_mines_nearby(x, y) == 0:
             for dx in [-1, 0, 1]:
                 for dy in [-1, 0, 1]:
@@ -55,7 +56,6 @@ class Minesweeper:
         return True
 
     def check_win(self):
-        # Check if the number of revealed non-mine cells equals the total non-mine cells
         return self.revealed_non_mine_cells == self.total_non_mine_cells
 
     def play(self):
@@ -64,6 +64,12 @@ class Minesweeper:
             try:
                 x = int(input("Enter x coordinate: "))
                 y = int(input("Enter y coordinate: "))
+                
+                # Ensure input is within the bounds of the board
+                if x < 0 or x >= self.width or y < 0 or y >= self.height:
+                    print(f"Invalid coordinates. Please enter values within the range (0-{self.width-1}) for x and (0-{self.height-1}) for y.")
+                    continue
+                
                 if not self.reveal(x, y):
                     self.print_board(reveal=True)
                     print("Game Over! You hit a mine.")
