@@ -20,7 +20,7 @@ class Minesweeper:
         print(' '.join(str(i) for i in range(self.width)))
         # Print row indices only
         for y in range(self.height):
-            print(y)
+            print(y + 1)
 
     def count_mines_nearby(self, x, y):
         count = 0
